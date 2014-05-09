@@ -1,0 +1,183 @@
+html, body {
+  background:#666;
+  overflow: hidden;
+  height: 100%;
+}
+#my_title {
+  color: #FFF;
+}
+.container-fluid {
+  height: 95%;
+}
+.dropdown-toggle {
+  background: #333;
+}
+.dropdown-menu {
+  background: #666;
+  max-height: 500px;
+  overflow: auto;
+}
+.dropdown-menu a {
+  color: #FFF;
+}
+.dropdown-menu .divider {
+  border-bottom-style: none;
+}
+.nav {
+  margin-bottom: 0px;
+}
+.navbar-search {
+  margin-top: 3px;
+  float: right;
+}
+input, textarea, select, .uneditable-input {
+  width: auto;
+}
+.close {
+  /* float: right; */
+}
+#open_tweetarea_button {
+  margin:1px 1px auto;
+  float:right;
+  top:0;
+}
+#head_searching_word1 {
+  margin: 1px 1px auto;
+  float: left;
+  top: 0;
+}
+.head {
+  height: 34px;
+  color: #FFF;
+  background:#333;
+}
+.head_word_listdown_button {
+  float: left;
+}
+.add_word_button {
+  /* float: right; */
+}
+.tweet .container-fluid {
+  padding: 1px;
+}
+.container-fluid .thumbnail {
+  border-style: none;
+  float: left;
+}
+.container-fluid .text-container {
+  margin-left: 65px;
+}
+.text_container span.text {
+  font-size: 14px;
+  color: #ccc;
+  white-space: pre-wrap;
+}
+.pic_thumb {
+  margin: 3px;
+	background: #ccc;
+	border: solid 1px #000;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
+	-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
+	box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
+}
+
+.row-fluid {
+  height: 100%;
+}
+#home_timeline {
+  height: 90%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+#tweets1 {
+  height: 90%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+#tweets2 {
+  height: 90%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.span4 {
+}
+#col0 {
+  height: 100%;
+}
+#col1 {
+  height: 100%;
+}
+#col2 {
+  height: 100%;
+}
+.home_pane {
+  color: #FFF;
+}
+.pane {
+  color: #FFF;
+  background:#333;
+}
+.tweet {
+  /* margin: 1px auto; */
+  border: 2px solid #555;
+}
+.tweet a.linkuser {
+  color: #099;
+}
+.tweet a.screen_name {
+  margin: 10px 0px 0px 0px;
+  padding: 0 0 0 0;
+  color: #099;
+  font-weight: normal;
+}
+.tweet a.linktag, a.linkify {
+  color: #808080;
+}
+.dtime > a {
+  font-size: 9px;
+  color: #808080;
+  display: inline-block;
+}
+.tweet span.errmsg{
+  color: #FF0000;
+}
+/*
+.tweet div.source {
+  margin:0;
+  color: #FFF;
+  font-size: 11px;
+}
+*/
+/*
+.tweet div.source a {
+  color: #808080;
+}
+*/
+.reply_button_container {
+  margin: 0px;
+  padding: 0;
+  float:right;
+}
+#read_more {
+  text-align: center;
+  margin:1px auto;
+  padding:1px;
+  background: #555;
+}
+.word_menu {
+  display:none;
+  width:100%;
+  border: 1px solid #1c1c1c;
+  background-color: #302f2f;
+}
+.word_menu li a {
+  color:#FFFFFF;
+  text-decoration: none;
+  margin: 0px;
+  padding: 5px;
+  display: block;
+}
+

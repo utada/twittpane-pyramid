@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Undo retweet</title>
+<style type="text/css">
+html,body {
+  margin: 0;
+  padding: 0;
+  background:#555;
+  text-align: left;
+  font: 13px/1.231 arial,helvetica,clean,sans-serif
+}
+div#head {
+  width: 100%;
+  height: 60px;
+  lign-height: 19px;
+  display: block;
+  text-align: center;
+  background:#111;
+}
+div#head div#title {
+  float: left;
+}
+div#head div#title div#icon {
+  margin: 0px;
+  padding: 10px;
+  top: 0;
+  position: relative;
+  float: left;
+}
+div#head div#title div#clock {
+  margin: 5px;
+  padding: 10px;
+  color: #BABABA;
+}
+div#session {
+  float: right;
+}
+div#head div#session div#my_name {
+  margin: 5px;
+  padding: 10px;
+  top: 0;
+  color: #BABABA;
+  position: relative;
+  float: right;
+  font-weight: normal;
+}
+div#head div#session div#my_picture {
+  margin: 0px;
+  padding: 5px;
+  top: 0;
+  position: relative;
+  float: right;
+}
+div#to_destroy {
+  margin: 10px;
+  left: 0px;
+  padding: 10px;
+  float: left;
+  width: 90%;
+  background: #AAA;
+}
+
+div#to_icon {
+  margin: 0px;
+  padding: 10px;
+  position: relative;
+  float: left;
+}
+div#to_name {
+  top: 0;
+  font-weight: Bold;
+  font-size:16px;
+  background: #FFF;
+}
+div#to_screen_name {
+  top: 0;
+  font-weight: normal;
+  font-size:12px;
+  background: #FFF;
+}
+div#to_text {
+  margin: 0px;
+  padding: 10px;
+  top: 0;
+  font-weight: normal;
+  color:#000;
+  background: #FFF;
+}
+div#destroy {
+  width: 90%;
+}
+textarea#reply {
+  width: 90%;
+  height:75px;
+  margin: 10px;
+  padding; 10px;
+  color:#666;
+  font-size:14px;
+  -moz-border-radius: 8px; -webkit-border-radius: 8px;
+  /* margin:5px 0px 10px 0px; */
+  border:#999 1px solid;
+  font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  transition: all 0.25s ease-in-out;
+  -webkit-transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  box-shadow: 0 0 5px rgba(81, 203, 238, 0);
+  -webkit-box-shadow: 0 0 5px rgba(81, 203, 238, 0);
+  -moz-box-shadow: 0 0 5px rgba(81, 203, 238, 0);
+}
+textarea#styleid:focus{
+  color:#000;
+  outline:none;
+  border:#35a5e5 1px solid;
+  font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+  -webkit-box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+  -moz-box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+}
+input#button {
+  float: right;
+}
+div#status1 {
+  width:30px;
+  font-weight:bold;
+  text-align:right;
+}
+#shrink_url {
+  float: right;
+}
+</style>
+</head>
+<body>
+<div id="head">
+  <div id="title">
+    <div id="icon"><img src="./images/bird_48_blue.png"/></div>
+    <div id="clock"></div>
+  </div>
+  <div id="session">
+    <div id="my_name"></div>
+    <div id="my_picture"></div>
+  </div>
+</div>
+<div id="to_destroy">
+  <div id="to_icon">
+  </div>
+  <div id="to_name">
+  </div>
+  <div id="to_screen_name">
+  </div>
+  <div id="to_text">
+  </div>
+
+</div>
+
+<div id="reply">
+  <div id="reply_user_icon">
+  </div>
+  <div id="reply_title">
+  </div>
+  <div id="reply_text">
+  </div>
+</div>
+<div id="destroy">
+  <form id="send" method="post">
+  <input id="button" name="Button" type="button" value="Undo retweet"/>
+  </form>
+</div>
+
+<script src="scripts/plugin/jquery.min.js"></script>
+<script src="scripts/lib.js"></script>
+<script src="scripts/plugin/jqClock.min.js"></script>
+<script src="scripts/twittpane.js"></script>
+<script src="scripts/jsoauth.js"></script>
+<script src="scripts/undo_retweet.js"></script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Language" content="ja" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta http-equiv="imagetoolbar" content="no" />
+  <title>Twittpane</title>
+  <meta http-equiv="refresh" content="1800">
+  <meta http-equiv="pragma" content="no-cache">
+  <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="/static/css/twitter.css"/>
+</head>
+<body>
+
+  <div class="navbar navbar-inverse">
+    <div class="navbar-inner">
+      <div class="container-fluid">
+        <ul class="nav">
+          <li>
+            <a href="https://twitter.com/" target="_blank"><img id="home_icon" src="/static/images/icon48.png" width="20" height="20"></a>
+          </li>
+          <li class="active">
+            <a href="https://twitter.com/" target="_blank">Home</a>
+          </li>
+        </ul>
+        <ul class="nav pull-right">
+          <li>
+            <a href="#"><span id="my_rate_limit">#</span></a>
+          </li>
+          <li><a href="https://chrome.google.com/webstore/detail/ajklfbgfihdpbbbnjpbhpjlmefloailb" target="_blank">about</a>
+          </li>
+          <li><a href="#" id="logout">logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid"> 
+    <div class="row-fluid">
+      <!-- #col0 -->
+      <div class="span4" id="col0">
+        <div class="head" id="head_home_timeline">
+          <div class="row-fluid">
+            <div class="span1" id="open_tweetarea_button">
+              <a href="#"><img id="open_tweetarea" src="/static/images/bird_32_blue.png" width="20" height="20" title="Tweet"></a>
+            </div> <!-- #open_tweet_area_button -->
+          </div> <!-- .row-fluid -->
+
+        </div> <!-- .head -->
+        <div class="home_pane" id="home_timeline"></div>
+      </div>
+      <!-- #col0 -->
+
+      <!-- #col1 -->
+      <div class="span4" id="col1">
+        <div class="head" id="head_tweets1" word="">
+
+          <ul class="nav nav-pills" nowrap>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  #
+                  <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu"></ul>
+            </li>
+            <form class="navbar-search" onsubmit="return false">
+              <input type="text" class="search-query" placeholder="Search">
+            </form>
+          </ul>
+
+        </div> <!-- .head -->
+        <div class="pane" id="tweets1" word="#" pane_id="1"></div>
+      </div> <!-- #col1 -->
+
+      <!-- #col2 -->
+      <div class="span4" id="col2">
+        <div class="head" id="head_tweets2" word="">
+
+          <ul class="nav nav-pills">
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  #
+                  <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+              </ul>
+            </li>
+            <form class="navbar-search" onsubmit="return false">
+              <input type="text" class="search-query" placeholder="Search">
+            </form>
+          </ul>
+
+        </div> <!-- .head -->
+      <div class="pane" id="tweets2" word="#" pane_id="2"></div>
+      </div> <!-- #col2 -->
+
+    </div> <!-- .container-fluid -->
+
+  <div id="footer"></div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+<script src="/static/js/lib.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.0/jquery.cookie.min.js"></script>
+<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script> -->
+<script src="/static/js/plugin/jquery.bottom-1.0.js"></script>
+<script src="/static/js/plugin/jquery.thumbs.js"></script>
+<script src="/static/js/plugin/bignumber.js"></script>
+<script src="/static/js/twittpane.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/oauth-io/0.9.0/oauth.min.js"></script>
+<script src="//platform.twitter.com/widgets.js"></script>
+<script src="/static/js/1.js"></script>
+</body> 
+</html>

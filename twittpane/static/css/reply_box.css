@@ -1,0 +1,50 @@
+html, body {
+  background:#555;
+}
+#to_icon {
+  border-style: none;
+  float: left;
+}
+.text-container {
+  margin-left: 65px;
+  width: 90%;
+}
+#to_name {
+  top: 0;
+  font-weight: Bold;
+  font-size:16px;
+  color:#000;
+}
+#to_screen_name {
+  top: 0;
+  font-weight: normal;
+  font-size:12px;
+  color:#000;
+}
+#to_text {
+  margin: 0px;
+  padding: 10px;
+  top: 0;
+  font-weight: normal;
+  color:#000;
+}
+.input-xlarge {
+  width: 90%;
+}
+#button-area {
+  width: 100%;
+  margin: 5px;
+}
+input#button {
+  float: right;
+}
+.container-fluid.well {
+  margin: 20px;
+}
+.nav {
+  margin-bottom: 0px;
+}
+textarea#reply {
+  width: 100%;
+}
+

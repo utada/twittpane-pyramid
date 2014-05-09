@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta http-equiv="imagetoolbar" content="no" />
+  <title>Delete Tweet</title>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="css/reply_box.css"/>
+</head>
+<body>
+
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <ul class="nav">
+        <li style="margin: 0;">
+          <a href="#"><img src="./images/bird_48_blue.png"/></a>
+        </li>
+        <li style="width: 200px; text-align:center;">
+          <a href="#" id="clock"></a>
+        </li>
+      </ul>
+      <ul class="nav pull-right">
+        <li>
+          <a href="#" id="my_picture"></a>
+        </li>
+        <li>
+          <a href="#" id="my_name"></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid well">
+  <div class="row-fluid">
+    <div id="to_icon">
+    </div>
+    <div class="text-container">
+      <div id="to_name"></div>
+      <div id="to_screen_name"></div>
+      <div id="to_text"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <form class-"form-horizontal" id="send" method="post">
+    <input id="button" name="Button" type="button" value="delete this tweet"/>
+  </form>
+</div>
+
+<script src="scripts/plugin/jquery.min.js"></script>
+<script src="scripts/lib.js"></script>
+<script src="scripts/plugin/jqClock.min.js"></script>
+<script src="scripts/twittpane.js"></script>
+<script src="scripts/jsoauth.js"></script>
+<script src="scripts/destroy_intents.js"></script>
+</body>
+</html>
