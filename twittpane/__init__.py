@@ -13,6 +13,8 @@ def main(global_config, **settings):
     config.add_route('verify_credentials', 'api/verify_credentials')
     config.add_route('get_saved_searches', 'api/get_saved_searches')
     config.add_route('create_saved_search', 'api/create_saved_search')
+    config.add_route('destroy_saved_search', 'api/destroy_saved_search')
+    config.add_route('get_home_timeline', 'api/get_home_timeline')
     config.add_route('search', 'api/search')
     config.scan()
     return config.make_wsgi_app()

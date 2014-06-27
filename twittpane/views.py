@@ -1,6 +1,6 @@
 from pyramid.view import view_config
 from pyramid.view import view_defaults
-from pyramid.httpexceptions import HTTPFound
+from pyramid.httpexceptions import HTTPFound, HTTPCreated
 from pyramid.response import Response
 from twython import Twython, TwythonError
 import sys, os
@@ -17,27 +17,11 @@ f = config.read(DIR + '/secrets.ini')
 APP_KEY = config['DEV']['APP_KEY']
 APP_SECRET = config['DEV']['APP_SECRET']
 
-AUTH_URL = '/api/auth'
 CALLBACK_URL='http://freegate.co:5003/callback'
 
 @view_config(route_name='home', renderer='templates/home.jinja2')
 def home(request):
     return {'project': 'twittpane'}
-
-#@view_config(route_name='auth', renderer='json')
-#def auth(request):
-#    twitter = Twython(APP_KEY, APP_SECRET)
-#    auth = twitter.get_authentication_tokens(callback_url=CALLBACK_URL)
-#    print(auth)
-#    # From the auth variable, save the oauth_token_secret for later use (these are not the final auth tokens). In Django or other web frameworks, you might want to store it to a session variable
-#    url = auth['auth_url']
-#    OAUTH_TOKEN = auth['oauth_token']
-#    OAUTH_TOKEN_SECRET = auth['oauth_token_secret']
-#
-#    response = HTTPFound(location=url)
-#    response.set_cookie('oauth_token', OAUTH_TOKEN, max_age=86400)
-#    response.set_cookie('oauth_token_secret', OAUTH_TOKEN_SECRET, max_age=86400)
-#    return response
 
 @view_config(route_name='callback', renderer='json')
 def callback(request):
@@ -77,6 +61,7 @@ class TwyAPI(object):
         OAUTH_TOKEN = auth['oauth_token']
         OAUTH_TOKEN_SECRET = auth['oauth_token_secret']
 
+        #print(url)
         response = HTTPFound(location=url)
         response.set_cookie('oauth_token', OAUTH_TOKEN, max_age=86400)
         response.set_cookie('oauth_token_secret', OAUTH_TOKEN_SECRET, max_age=86400)
@@ -85,8 +70,8 @@ class TwyAPI(object):
     @view_config(route_name='validate_auth')
     def validate_auth(self):
         if 'oauth_token' in self.request.cookies and 'oauth_token_secret' in self.request.cookies:
-            #print(self.request.cookies)
-            print(self.request.cookies['oauth_token'])
+            print(self.request.cookies)
+            #print(self.request.cookies['oauth_token'])
             OAUTH_TOKEN = self.request.cookies['oauth_token']
             OAUTH_TOKEN_SECRET = self.request.cookies['oauth_token_secret']
             self.twitter = Twython(APP_KEY, APP_SECRET,
@@ -99,9 +84,8 @@ class TwyAPI(object):
     @view_config(route_name='verify_credentials')
     def verify_credentials(self):
         if not hasattr(self, 'twitter'):
-            if self.validate_auth() == False:
-                response = HTTPFound(location=AUTH_URL)
-                return response
+            if not self.validate_auth():
+                return None
         try:
             return self.twitter.verify_credentials()
         except TwythonError as e:
@@ -111,8 +95,7 @@ class TwyAPI(object):
     def get_saved_searches(self):
         if not hasattr(self, 'twitter'):
             if self.validate_auth() == False:
-                response = HTTPFound(location=AUTH_URL)
-                return response
+                return None
         try:
             return self.twitter.get_saved_searches()
         except TwythonError as e:
@@ -122,25 +105,46 @@ class TwyAPI(object):
     def create_saved_search(self):
         if not hasattr(self, 'twitter'):
             if self.validate_auth() == False:
-                response = HTTPFound(location=AUTH_URL)
-                return response
+                return None
         try:
             params = self.request.GET.dict_of_lists()
             return self.twitter.create_saved_search(**params)
         except TwythonError as e:
             return {"create_saved_search": e}
 
+    @view_config(route_name='destroy_saved_search')
+    def destroy_saved_search(self):
+        if not hasattr(self, 'twitter'):
+            if self.validate_auth() == False:
+                return None
+        try:
+            #id_str = self.request.params['id']
+            params = {'id': self.request.params['id']}
+            print(params)
+            return self.twitter.destroy_saved_search(**params)
+        except TwythonError as e:
+            return {"destroy_saved_search": e}
+
     @view_config(route_name='search')
     def search(self):
         if not hasattr(self, 'twitter'):
             if self.validate_auth() == False:
-                response = HTTPFound(location=AUTH_URL)
-                return response
+                return None
         try:
             params = self.request.GET.dict_of_lists()
             return self.twitter.search(**params)
         except TwythonError as e:
             return {"search": e}
 
+    @view_config(route_name='get_home_timeline')
+    def get_home_timeline(self):
+        if not hasattr(self, 'twitter'):
+            if self.validate_auth() == False:
+                return None
+        try:
+            params = self.request.GET.dict_of_lists()
+            return self.twitter.get_home_timeline(**params)
+        except TwythonError as e:
+            return {"get_home_timeline": e}
 
 

@@ -1,11 +1,4 @@
-
 (function() {
-    
-    // click to open tweet window (new tweet)
-    $('#open_tweetarea').click(function() {
-        TWITT.tweet_intents();
-    });
-
     $('p.source a').attr('target', '_blank');
     $('.word_menu').click(function() {
         return false;
@@ -22,59 +15,24 @@
         '" width="20" height="20"></a>';
     logo_html += '</div>';
 
+    /*
     $('#logout').click(function() {
         TWITT.jsoauth.endSession(function(data) {
           var json = JSON.parse(data.text);
           TWITT.removeTab(backgroundPage.TWITT.conf.tabid);
-      });
+        });
     });
-
-    /*
-     * open reply
-     */
-    $('#home_timeline').delegate('.reply', 'click', function() {
-        var tweet_id = $(this).attr('tweet_id');
-        var obj = $('#tw' + tweet_id);
-        TWITT.onClickReply(obj);
-    });
-
-    /*
-     * open reply with edit
-     */
-    $('#home_timeline').delegate('.share_rt','click',function() {
-      var tweet_id = $(this).attr('tweet_id');
-      var obj = $('#tw'+tweet_id);
-      TWITT.onClickShareReply(obj);
-    });
-    
-    /*
-     * open retweet
-     */
-    $('#home_timeline').delegate('.retweet','click',function() {
-      var tweet_id = $(this).attr('tweet_id');
-      var obj = $('#tw'+tweet_id);
-      TWITT.onClickRetweet(obj); // home_timeline上のretweetボタン押した時
-    });
-    
-    /*
-     * delete tweet
-     */
-    $('#home_timeline').delegate('.destroy_tweet','click',function() {
-      var tweet_id = $(this).attr('tweet_id');
-      var obj = $('#tw'+tweet_id);
-      TWITT.onClickDestroy(obj);
-    });
+    */
 
     /*
      * pick up list name (pane 1)
      */
+    /*
     $('#head_tweets1').delegate('li.lists_list', 'click', function() {
       var pane_id = 1;
       var name = $(this).find('a').attr('list_name');
 
-      /*
-       * stop current search
-       */
+      // stop current search
       if (TWITT.conf.search_data["1"] !== undefined) {
         clearTimeout(TWITT.conf.search_data["1"].timer);
       }
@@ -96,17 +54,17 @@
       TWITT.list_timeline(params, pane_id);
       TWITT.change_list_words(pane_id, params.name);
     });
+    */
 
     /*
      * pick up list name (pane 2)
      */
+    /*
     $('#head_tweets2').delegate('li.lists_list', 'click', function() {
       var pane_id = 2;
       var name = $(this).find('a').attr('list_name');
 
-      /*
-       * stop current search
-       */
+      // stop current search
       if (TWITT.conf.search_data["2"] !== undefined) {
         clearTimeout(TWITT.conf.search_data["2"].timer);
       }
@@ -129,25 +87,30 @@
       TWITT.list_timeline(params, pane_id);
       TWITT.change_list_words(pane_id, params.name);
     });
+    */
 
     /*
      * main
      */
     $.get(TWITT.urls.verify_credentials, function(data) {
-        //console.log(data);
+        if (data === null) {
+            window.location.replace(TWITT.urls.auth); // authentication
+            return false;
+        }
+        //TWITT.conf = TWITT.set_conf(data);
+        TWITT.set_conf(data);
 
         $.get(TWITT.urls.get_saved_searches, function(saved_searches) {
+            console.log(saved_searches);
             TWITT.conf.saved_searches = saved_searches;
             var words = TWITT.get_words();
-
             /*
              * start searching
              */
-            //var n = 0;
             $('div.pane').delay(5000).each(function(i, e) {
                 TWITT.search_pane(i, words); // set search dropdown menu
                 var pane_id = $(this).attr('pane_id');
-                console.log(words[i]);
+                //console.log(words[i]);
                 TWITT.search_tweets(pane_id, words[i]);
                 //var m = words[i].match(/^\((.*?)\)$/);
                 /*
@@ -166,6 +129,8 @@
                 TWITT.set_new_search(pane_id); // set search form event
             });
         });
+
+        TWITT.init_timeline();
     });
     return;
 

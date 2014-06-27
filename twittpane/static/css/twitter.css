@@ -115,6 +115,7 @@ input, textarea, select, .uneditable-input {
 }
 .home_pane {
   color: #FFF;
+  background:#333;
 }
 .pane {
   color: #FFF;

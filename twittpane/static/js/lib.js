@@ -1,18 +1,3 @@
-// var backgroundPage = chrome.extension.getBackgroundPage();
-
-var localDD = function(str) {
-  var dd = new Date(str);
-  var month = dd.getMonth() + 1;
-  var date = dd.getDate();
-  var hour = dd.getHours();
-  var minute = dd.getMinutes();
-  if (month < 10) { month = "0" + month; }
-  if (date < 10) { date = "0" + date; }
-  if (hour < 10) { hour = "0" + hour; }
-  if (minute < 10) { minute = "0" + minute; }
-  return dd.getFullYear()+"-"+month+"-"+date+" "+hour+":"+minute;
-};
-
 String.prototype.linkify = function () {
     return this.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&\?\/.=]+/g, function (m) {
           return '<a target="_blank" href="'+m+'" class="linkify">'+m+'</a>';
