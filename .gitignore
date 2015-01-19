@@ -1,6 +1,7 @@
 *swp
 *pyc
 *log
+*egg-info/
 secrets.ini
 build/
 dist/
