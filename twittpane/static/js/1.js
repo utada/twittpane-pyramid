@@ -94,7 +94,7 @@
      */
     $.get(TWITT.urls.verify_credentials, function(data) {
         if (data === null) {
-            window.location.replace(TWITT.urls.auth); // authentication
+            window.location.replace(TWITT.urls.auth); // redirect to /api/auth
             return false;
         }
         //TWITT.conf = TWITT.set_conf(data);

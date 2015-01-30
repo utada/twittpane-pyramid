@@ -7,7 +7,9 @@ import sys, os
 import json
 import configparser
 import pprint
+import logging
 
+log = logging.getLogger(__name__)
 DIR = os.path.dirname(os.path.realpath(__file__))
 pp = pprint.PrettyPrinter(indent=4)
 config = configparser.ConfigParser()
@@ -16,34 +18,7 @@ f = config.read(DIR + '/secrets.ini')
 #print(config.sections())
 APP_KEY = config['DEV']['APP_KEY']
 APP_SECRET = config['DEV']['APP_SECRET']
-
-CALLBACK_URL='http://freegate.co:5003/callback'
-
-@view_config(route_name='home', renderer='templates/home.jinja2')
-def home(request):
-    return {'project': 'twittpane'}
-
-@view_config(route_name='callback', renderer='json')
-def callback(request):
-    oauth_verifier = request.GET['oauth_verifier']
-    OAUTH_TOKEN = request.cookies['oauth_token']
-    OAUTH_TOKEN_SECRET = request.cookies['oauth_token_secret']
-
-    twitter = Twython(APP_KEY, APP_SECRET,
-                      OAUTH_TOKEN,
-                      OAUTH_TOKEN_SECRET)
-
-    final_step = twitter.get_authorized_tokens(oauth_verifier)
-    OAUTH_TOKEN = final_step['oauth_token']
-    OAUTH_TOKEN_SECRET = final_step['oauth_token_secret']
-
-    # set cookies
-    response = HTTPFound(location='/')
-    #response.set_cookie('oauth_token', OAUTH_TOKEN, max_age=86400)
-    #response.set_cookie('oauth_token_secret', OAUTH_TOKEN_SECRET, max_age=86400)
-    response.set_cookie('oauth_token', OAUTH_TOKEN)
-    response.set_cookie('oauth_token_secret', OAUTH_TOKEN_SECRET)
-    return response
+CALLBACK_URL='https://twittpane-dev.freegate.co/callback'
 
 @view_defaults(renderer='json')
 class TwyAPI(object):
@@ -51,18 +26,42 @@ class TwyAPI(object):
     def __init__(self, request):
         self.request = request
 
+    @view_config(route_name='callback', renderer='json')
+    def callback(self):
+        oauth_verifier = self.request.GET['oauth_verifier']
+        OAUTH_TOKEN = self.request.cookies['oauth_token']
+        OAUTH_TOKEN_SECRET = self.request.cookies['oauth_token_secret']
+
+        twitter = Twython(APP_KEY, APP_SECRET,
+                          OAUTH_TOKEN,
+                          OAUTH_TOKEN_SECRET)
+
+        final_step = twitter.get_authorized_tokens(oauth_verifier)
+        OAUTH_TOKEN = final_step['oauth_token']
+        OAUTH_TOKEN_SECRET = final_step['oauth_token_secret']
+
+        # set cookies and redirect
+        response = HTTPFound(location='https://twittpane-dev.freegate.co')
+        response.set_cookie('oauth_token', OAUTH_TOKEN, max_age=86400)
+        response.set_cookie('oauth_token_secret', OAUTH_TOKEN_SECRET, max_age=86400)
+        return response
+
+    @view_config(route_name='home', renderer='templates/home.jinja2')
+    def home(self):
+        if self.validate_auth() == False:
+            self.auth()
+        return {'project': 'twittpane'}
+
     @view_config(route_name='auth')
     def auth(self):
         self.twitter = Twython(APP_KEY, APP_SECRET)
         auth = self.twitter.get_authentication_tokens(callback_url=CALLBACK_URL)
-        print(auth)
-        # From the auth variable, save the oauth_token_secret for later use (these are not the final auth tokens). In Django or other web frameworks, you might want to store it to a session variable
-        url = auth['auth_url']
         OAUTH_TOKEN = auth['oauth_token']
         OAUTH_TOKEN_SECRET = auth['oauth_token_secret']
+        auth_url = auth['auth_url']
 
-        #print(url)
-        response = HTTPFound(location=url)
+        # set cookies and redirect
+        response = HTTPFound(location=auth_url)
         response.set_cookie('oauth_token', OAUTH_TOKEN, max_age=86400)
         response.set_cookie('oauth_token_secret', OAUTH_TOKEN_SECRET, max_age=86400)
         return response
@@ -70,8 +69,6 @@ class TwyAPI(object):
     @view_config(route_name='validate_auth')
     def validate_auth(self):
         if 'oauth_token' in self.request.cookies and 'oauth_token_secret' in self.request.cookies:
-            print(self.request.cookies)
-            #print(self.request.cookies['oauth_token'])
             OAUTH_TOKEN = self.request.cookies['oauth_token']
             OAUTH_TOKEN_SECRET = self.request.cookies['oauth_token_secret']
             self.twitter = Twython(APP_KEY, APP_SECRET,
